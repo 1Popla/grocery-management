@@ -21,6 +21,15 @@ def insert_order():
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
+@app.route('/delete_order', methods=['POST'])
+def delete_order():
+    return_id = orders_dao.delete_order(connection, request.form['order_id'])
+    response = jsonify({
+        'order_id': return_id
+    })
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
 @app.route('/')
 def index():
     return render_template('index.html')
