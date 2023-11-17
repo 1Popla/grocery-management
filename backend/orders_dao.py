@@ -30,6 +30,20 @@ def insert_order(connection, order):
 
     return order_id
 
+def delete_order(connection, order_id):
+    cursor = connection.cursor()
+
+    delete_order_details_query = "DELETE FROM order_details WHERE order_id = %s"
+    cursor.execute(delete_order_details_query, (order_id,))
+
+    delete_order_query = "DELETE FROM orders WHERE order_id = %s"
+    cursor.execute(delete_order_query, (order_id,))
+
+    connection.commit()
+
+    return order_id
+
+
 
 def get_order_details(connection, order_id):
     cursor = connection.cursor()
